@@ -1,10 +1,10 @@
 package com.heima.common.ocr;
 
-import com.heima.common.ocr.cut.CutCharFinder;
-import com.heima.common.ocr.distinguish.Distinguish;
-import com.heima.common.ocr.distinguish.DistinguishByFuture;
-import com.heima.common.ocr.distinguish.DistinguishByImage;
-import com.heima.common.ocr.pretreatment.ImpurityLine;
+//import com.heima.common.ocr.cut.CutCharFinder;
+//import com.heima.common.ocr.distinguish.Distinguish;
+//import com.heima.common.ocr.distinguish.DistinguishByFuture;
+//import com.heima.common.ocr.distinguish.DistinguishByImage;
+//import com.heima.common.ocr.pretreatment.ImpurityLine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -19,11 +19,11 @@ import java.util.List;
  */
 @RunWith(JUnit4.class)
 public class OcrTest {
-
-    /**
+/*
+    *//**
      * 基于特征变量加权识别
      * @throws Exception
-     */
+     *//*
     @Test
     public void testDistinguishByImage() throws  Exception {
         String path = OcrTest.class.getResource("/test-ocr").getPath();
@@ -32,10 +32,10 @@ public class OcrTest {
         System.out.println(image.ocrText(bi));
     }
 
-    /**
+    *//**
      * 基于投影变量加权识别
      * @throws Exception
-     */
+     *//*
     @Test
     public void testDistinguishByFuture() throws  Exception {
         String path = OcrTest.class.getResource("/test-ocr").getPath();
@@ -45,10 +45,10 @@ public class OcrTest {
     }
 
 
-    /**
+    *//**
      * 测试输出图片的过程标记
      * @throws Exception
-     */
+     *//*
     @Test
     public void testBlag() throws Exception{
         String path = OcrTest.class.getResource("/test-ocr").getPath();
@@ -75,10 +75,10 @@ public class OcrTest {
         }
     }
 
-    /**
+    *//**
      * 建立基准库并切割字符
      * @throws Exception
-     */
+     *//*
     @Test
     public void testCutImage() throws  Exception{
         String path = OcrTest.class.getResource("/test-ocr").getPath();
@@ -101,6 +101,6 @@ public class OcrTest {
                 count++;
             }
         }
-    }
+    }*/
 
 }
