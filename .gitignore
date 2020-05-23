@@ -1,0 +1,26 @@
+#compiled class file
+*。class
+
+#log file
+*.log
+
+*.ctxt
+
+.mtj.tmp/
+
+#package file
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.tar
+
+*/target*
+*.setting
+*.classpath
+*.project
+
+*.idea
+*.iml
