@@ -17,6 +17,8 @@
 *.tar.gz
 *.tar
 
+*/compiler.xml
+
 */target*
 *.setting
 *.classpath
