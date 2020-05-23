@@ -1,5 +1,5 @@
 #compiled class file
-*。class
+*.class
 
 #log file
 *.log
@@ -19,7 +19,7 @@
 
 */compiler.xml
 
-*/target*
+target
 *.setting
 *.classpath
 *.project
