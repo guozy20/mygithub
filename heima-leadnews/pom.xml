@@ -13,7 +13,6 @@
         <module>heima-leadnews-utils</module>
         <module>heima-leadnews-apis</module>
         <module>heima-leadnews-model</module>
-        <module>heima-leadnews-acticle</module>
         <module>heima-leadnews-article</module>
     </modules>
 
