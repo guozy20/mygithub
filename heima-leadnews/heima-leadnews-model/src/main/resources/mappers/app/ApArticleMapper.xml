@@ -114,7 +114,8 @@
 
     <!-- 以及文章IDS列表获取文章数据 -->
     <select id="loadArticleListByIdList" resultMap="resultMap">
-        select * from ap_article where id in(
+        select <include refid="Base_Column_List"/>
+         from ap_article where id in (
         <trim prefix="" suffixOverrides=",">
             <foreach item="item" collection="list" separator=",">
                 #{item.articleId},
@@ -125,7 +126,8 @@
 
     <!-- 以及文章IDS列表获取文章数据V2 -->
     <select id="loadArticleListByIdListV2" resultMap="resultMap">
-        select * from ap_article where id in(
+        select <include refid="Base_Column_List"/>
+         from ap_article where id in(
         <trim prefix="" suffixOverrides=",">
             <foreach item="item" collection="list" separator=",">
                 #{item},

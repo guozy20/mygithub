@@ -13,6 +13,8 @@
         <module>heima-leadnews-utils</module>
         <module>heima-leadnews-apis</module>
         <module>heima-leadnews-model</module>
+        <module>heima-leadnews-acticle</module>
+        <module>heima-leadnews-article</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->
@@ -71,6 +73,14 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
     <dependencyManagement>

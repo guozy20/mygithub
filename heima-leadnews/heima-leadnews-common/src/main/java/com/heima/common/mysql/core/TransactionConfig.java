@@ -23,13 +23,13 @@ import javax.sql.DataSource;
 
 @Setter
 @Getter
-@Aspect
-@EnableAspectJAutoProxy
-@EnableTransactionManagement
+@Aspect  // 切面
+@EnableAspectJAutoProxy  // 自动代理
+@EnableTransactionManagement // 开启当前的事务管理
 @Configuration
 @ConfigurationProperties(prefix="mysql.core")
 @PropertySource("classpath:mysql-core-jdbc.properties")
-public class TransactionConfig {
+class TransactionConfig {
 
     String txScanPackage;
 

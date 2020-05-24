@@ -3,7 +3,7 @@ package com.heima.common.mysql.core;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +15,6 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-
 /**
  * 自动化配置核心数据库的连接配置
  */
@@ -24,7 +23,7 @@ import java.io.IOException;
 @Configuration
 @ConfigurationProperties(prefix = "mysql.core")
 @PropertySource("classpath:mysql-core-jdbc.properties")
-@MapperScan(basePackages = "com.heima.model.mappers", sqlSessionFactoryRef = "mysqlCoreSqlSessionFactory")
+@MapperScan(basePackages = "com.heima.model.mappers", sqlSessionFactoryRef = "mysqlSoreSessionFactory")
 public class MysqlCoreConfig {
     String jdbcUrl;
     String jdbcUserName;
@@ -38,60 +37,57 @@ public class MysqlCoreConfig {
     String params;//pageNum,pageSize,count,pageSizeZero,reasonable，不配置映射的用默认值， 默认值为pageNum=pageNum;pageSize=pageSize;count=countSql;reasonable=reasonable;pageSizeZero=pageSizeZero
 
     /**
-     * 这是最快的数据库连接池
-     *
+     * 配置数据库连接池
+     * 这是一个最快的数据库连接池
      * @return
      */
     @Bean
-    public DataSource mysqlCoreDataSource() {
+    public DataSource mysqlCoreDataSource(){
         HikariDataSource hikariDataSource = new HikariDataSource();
+        hikariDataSource.setDriverClassName(this.getJdbcUserName());
         hikariDataSource.setUsername(this.getJdbcUserName());
-        hikariDataSource.setPassword(this.getRealPassword());
+        hikariDataSource.setPassword(this.getJdbcPassword());
         hikariDataSource.setJdbcUrl(this.getJdbcUrl());
-        //最大连接数
+        // 最大连接数
         hikariDataSource.setMaximumPoolSize(50);
-        //最小连接数
+        // 最小连接数
         hikariDataSource.setMinimumIdle(5);
-        hikariDataSource.setDriverClassName(this.getJdbcDriver());
+
         return hikariDataSource;
     }
 
     /**
-     * 这是Mybatis的Session
-     *
+     * 配置mybatis的session
+     * @param mysqlCoreDataSource
      * @return
      * @throws IOException
      */
     @Bean
-    public SqlSessionFactoryBean mysqlCoreSqlSessionFactory(@Qualifier("mysqlCoreDataSource") DataSource mysqlCoreDataSource) throws IOException {
+    public SqlSessionFactoryBean mysqlSoreSessionFactory(@Qualifier("mysqlCoreDataSource") DataSource mysqlCoreDataSource) throws IOException {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(mysqlCoreDataSource);
-        sessionFactory.setMapperLocations(resolver.getResources(this.getMapperFilePath()));
-        sessionFactory.setTypeAliasesPackage(this.getAliasesPackage());
+        sessionFactory.setDataSource(mysqlCoreDataSource); // 设置数据源
+        sessionFactory.setMapperLocations(resolver.getResources(this.getRootMapper())); // 设置mapper文件路径
+        sessionFactory.setTypeAliasesPackage(this.getAliasesPackage()); // 设置别名包
+        // 开启自动驼峰标识转换
         org.apache.ibatis.session.Configuration mybatisConf = new org.apache.ibatis.session.Configuration();
         mybatisConf.setMapUnderscoreToCamelCase(true);
         sessionFactory.setConfiguration(mybatisConf);
         return sessionFactory;
     }
-
     /**
      * 密码反转，简单示意密码在配置文件中的加密处理
-     *
      * @return
      */
-    public String getRealPassword() {
+    public String getRealPassword(){
         return StringUtils.reverse(this.getJdbcPassword());
     }
 
     /**
-     * 拼接Mapper.xml文件的存放路径
-     *
+     * 拼接mapper.xml文件的路径
      * @return
      */
-    public String getMapperFilePath() {
+    public String getMapperFilePath(){
         return new StringBuffer().append("classpath:").append(this.getRootMapper()).append("/**/*.xml").toString();
     }
-
-
 }
